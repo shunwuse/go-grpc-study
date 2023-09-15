@@ -7,13 +7,16 @@ import (
 	"time"
 
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/credentials"
 )
 
 func main() {
+	// set credentials
+	creds, _ := credentials.NewClientTLSFromFile("/home/shun/repos/go/go-grpc-study/secrets/test.crt", "localhost")
+
 	opts := []grpc.DialOption{
-		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithPerRPCCredentials(&clientTokenAuth{}),
+		grpc.WithTransportCredentials(creds),
 	}
 
 	// connect to server

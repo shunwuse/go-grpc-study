@@ -13,5 +13,5 @@ func (c clientTokenAuth) GetRequestMetadata(ctx context.Context, uri ...string) 
 }
 
 func (c clientTokenAuth) RequireTransportSecurity() bool {
-	return false
+	return true
 }

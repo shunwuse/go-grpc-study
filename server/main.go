@@ -7,11 +7,14 @@ import (
 	pb "go-grpc-study/protos"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 const port = ":8080"
 
 func main() {
+	creds, _ := credentials.NewServerTLSFromFile("/home/shun/repos/go/go-grpc-study/secrets/test.crt", "/home/shun/repos/go/go-grpc-study/secrets/test.key")
+
 	// print message
 	log.Println("Starting server...")
 
@@ -22,7 +25,7 @@ func main() {
 	}
 
 	// create grpc service
-	grpcServer := grpc.NewServer()
+	grpcServer := grpc.NewServer(grpc.Creds(creds))
 	log.Println("gRPC server is running.")
 
 	// register service
