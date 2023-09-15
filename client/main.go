@@ -11,8 +11,13 @@ import (
 )
 
 func main() {
+	opts := []grpc.DialOption{
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithPerRPCCredentials(&clientTokenAuth{}),
+	}
+
 	// connect to server
-	conn, err := grpc.Dial(":8080", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.Dial(":8080", opts...)
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 		return
